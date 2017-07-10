@@ -33,7 +33,7 @@ main() {
 
 install() {
     self_file=`echo $PWD`"/""$0"
-    cat ~/.bashrc | grep $self_file
+    cat ~/.bashrc | grep $self_file > /dev/null
     if [ $? == 0 ];then
         exit -1
     fi
