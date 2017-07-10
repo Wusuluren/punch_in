@@ -37,7 +37,7 @@ main() {
     cd $punch_in_pwd
     git pull origin master:master
     daily_punch_in
-    git commit -m `date` records.md
+    git commit -m `date` records.md punch_days
     git push origin master:master
     cd $old_pwd
 }
