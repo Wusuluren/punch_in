@@ -25,10 +25,10 @@ main() {
         echo "git not found"
         exit -1
     fi
-    git pull original master:master
+    git pull origin master:master
     daily_punch_in
     git commit -m `date` records.md
-    git push original master:master
+    git push origin master:master
 }
 
 install() {
