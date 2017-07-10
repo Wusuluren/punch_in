@@ -1,11 +1,13 @@
+#!env bash
+
 daily_punch_in() {
     source punch_days
+
     last_date=`tail -n 1 records.md | cut -d' ' -f2-4`
     now_date=`date | cut -d' ' -f1-3`
     if [ "$last_date" = "$now_date" ];then
         exit -1
     fi
-    echo $last_date, $now_date
     last_month=`tail -n 1 records.md | cut -d' ' -f2`
     now_month=`date | cut -d' ' -f2`
     if [ "$last_month" != "$now_month" ];then
@@ -25,7 +27,7 @@ main() {
         echo "git not found"
         exit -1
     fi
-    
+
     old_pwd=$PWD
     self_file=`echo $PWD`"/""$0"
     punch_in_pwd=`cat ~/.bashrc | grep $self_file | cut -d' ' -f2`
