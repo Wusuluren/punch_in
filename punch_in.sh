@@ -25,10 +25,19 @@ main() {
         echo "git not found"
         exit -1
     fi
+    
+    old_pwd=$PWD
+    self_file=`echo $PWD`"/""$0"
+    punch_in_pwd=`cat ~/.bashrc | grep $self_file | cut -d' ' -f2`
+    if [ "$punch_in_pwd" = "" ];then
+        exit -1
+    fi
+    cd $punch_in_pwd
     git pull origin master:master
     daily_punch_in
     git commit -m `date` records.md
     git push origin master:master
+    cd $old_pwd
 }
 
 install() {
