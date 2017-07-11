@@ -27,10 +27,7 @@ main() {
         echo "git not found"
         exit -1
     fi
-
     old_pwd=$PWD
-    self_file=`echo $PWD`"/""$0"
-    punch_in_pwd=`cat ~/.bashrc | grep $self_file | cut -d' ' -f2`
     if [ "$punch_in_pwd" = "" ];then
         exit -1
     fi
@@ -48,7 +45,7 @@ install() {
     if [ $? == 0 ];then
         exit -1
     fi
-    printf "\n# daily punch in\nbash "$self_file"\n" >> ~/.bashrc
+    printf "\n# daily punch in\nexport punch_in_pwd="$PWD"\nbash "$self_file"\nunset punch_in_pwd\n" >> ~/.bashrc
 }
 
 if [ "$1" = "install" ];then
