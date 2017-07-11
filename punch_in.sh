@@ -6,7 +6,7 @@ daily_punch_in() {
     last_date=`tail -n 1 records.md | cut -d' ' -f2`
     now_date=`date +%F`
     if [ "$last_date" = "$now_date" ];then
-        exit 0
+        return -1
     fi
     last_month=`tail -n 1 records.md | cut -d' ' -f2 | cut -d'-' f2`
     now_month=`date +%F | cut -d'-' -f2`
@@ -19,6 +19,7 @@ daily_punch_in() {
     printf "month_days=%d\nall_days=%d\n" $month_days $all_days > punch_days
     msg="- "`date +%F' '\(%A' '%B\)' '%T`" "`printf "打卡成功，本月第%d次打卡，总共打卡%d次" $month_days $all_days`
     echo $msg >> records.md
+    return 0
 }
 
 main() {
@@ -35,8 +36,10 @@ main() {
     cd $punch_in_pwd
     git pull origin master:master
     daily_punch_in
-    git commit -m "`date +%F' '%T`"" punch in" records.md punch_days
-    git push origin master:master
+    if [ $? -eq 0 ];then
+        git commit -m "`date +%F' '%T`"" punch in" records.md punch_days
+        git push origin master:master
+    fi
     cd $old_pwd
 }
 
