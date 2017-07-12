@@ -12,7 +12,7 @@ daily_punch_in() {
     last_month=`echo $last_month | cut -d'-' f2`
     now_month=`date +%F | cut -d'-' -f2`
     if [ "$last_month" != "$now_month" ];then
-        month_days=0
+        month_days=1
     else
         let month_days=month_days+1
     fi
