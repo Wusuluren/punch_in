@@ -8,7 +8,8 @@ daily_punch_in() {
     if [ "$last_date" = "$now_date" ];then
         return -1
     fi
-    last_month=`tail -n 1 records.md | cut -d' ' -f2 | cut -d'-' f2`
+    last_month=`tail -n 1 records.md | cut -d' ' -f2`
+    last_month=`echo $last_month | cut -d'-' f2`
     now_month=`date +%F | cut -d'-' -f2`
     if [ "$last_month" != "$now_month" ];then
         month_days=0
