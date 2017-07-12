@@ -34,11 +34,11 @@ main() {
         exit -1
     fi
     cd $punch_in_pwd
-    git pull origin master:master
+    git pull origin master:master > /dev/null
     daily_punch_in
     if [ $? -eq 0 ];then
-        git commit -m "`date +%F' '%T`"" punch in" records.md punch_days
-        git push origin master:master
+        git commit -m "`date +%F' '%T`"" punch in" records.md punch_days > /dev/null
+        git push origin master:master > /dev/null
     fi
     cd $old_pwd
 }
