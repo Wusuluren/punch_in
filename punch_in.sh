@@ -50,7 +50,7 @@ install() {
         echo "already install"
         exit -1
     fi
-    printf "\n# daily punch in\nexport punch_in_pwd="$PWD"\nbash "$self_file"\nunset punch_in_pwd\n" >> ~/.bashrc
+    printf "\n# daily punch in\nexport punch_in_pwd="$PWD"\nbash "$self_file" > /dev/null &\nunset punch_in_pwd\n" >> ~/.bashrc
 }
 
 if [ "$1" = "install" ];then
