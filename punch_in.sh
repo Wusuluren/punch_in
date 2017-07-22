@@ -1,4 +1,4 @@
-#!env bash
+#!/usr/bin/env bash
 
 daily_punch_in() {
     source punch_days
@@ -45,16 +45,18 @@ main() {
 
 install() {
     self_file=`echo $PWD`"/""$0"
-    cat ~/.bashrc | grep $self_file > /dev/null
+    sh_file="$HOME/.bashrc"
+    test -n "$1" && sh_file="$HOME/$1"
+    cat $sh_file | grep $self_file > /dev/null
     if [ $? == 0 ];then
         echo "already install"
         exit -1
     fi
-    printf "\n# daily punch in\nexport punch_in_pwd="$PWD"\nbash "$self_file" > /dev/null &\nunset punch_in_pwd\n" >> ~/.bashrc
+    printf "\n# daily punch in\nexport punch_in_pwd="$PWD"\nbash "$self_file" > /dev/null &\nunset punch_in_pwd\n" >> "$sh_file"
 }
 
 if [ "$1" = "install" ];then
-    install
+        install $2
     exit 0
 fi
 main
